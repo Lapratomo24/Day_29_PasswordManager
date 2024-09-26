@@ -1,15 +1,26 @@
 from tkinter import *
+from tkinter import messagebox
 
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def save():
-    with open("data.txt", "a") as data:
-        data.write(f"{field1.get()} | {field2.get()} | {field3.get()}\n")
-        field1.delete(0, END)
-        field2.delete(0, END)
-        field3.delete(0, END)
+    site = field1.get()
+    user = field2.get()
+    passw = field3.get()
+
+    if len(site) == 0 or len(user) == 0 or len(passw) == 0:
+        messagebox.showinfo(message="Please fill out all the fields.")
+    else:
+        select = messagebox.askokcancel(title=site, message=f" {user}\n {passw}\n Proceed with save?")
+
+        if select:
+            with open("data.txt", "a") as data:
+                data.write(f"{site} | {user} | {passw}\n")
+                field1.delete(0, END)
+                field2.delete(0, END)
+                field3.delete(0, END)
 
 
 # ---------------------------- UI SETUP ------------------------------- #
